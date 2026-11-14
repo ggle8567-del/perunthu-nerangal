@@ -95,6 +95,29 @@ h2{font-size:clamp(1.8rem,6.5vw,3rem)}
 @keyframes pulse{to{box-shadow:0 0 0 10px rgba(82,240,166,0)}}
 .ph-chip{display:inline-block;margin-top:12px;background:linear-gradient(160deg,#52f0a6,#14b36d);color:#04130b;border-radius:14px;padding:3px 12px;font-size:.72rem;line-height:1.5;font-weight:800}
 
+
+/* screenshot carousel */
+.show{overflow:hidden}
+.eyebrow{display:block;font-size:.8rem;font-weight:800;letter-spacing:.14em;color:var(--muted);margin-bottom:10px}
+.car{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:34px max(20px,calc(50% - 110px)) 26px;margin:14px -20px 0;scrollbar-width:none}
+.car::-webkit-scrollbar{display:none}
+.slide{flex:none;width:220px;scroll-snap-align:center;transition:transform .35s,opacity .35s;transform:scale(.88);opacity:.7}
+.slide.on{transform:scale(1);opacity:1}
+.dev{position:relative;border-radius:34px;padding:7px;background:#0b1510;border:1px solid rgba(120,255,190,.35);box-shadow:inset 0 1px 2px rgba(255,255,255,.25),0 22px 44px var(--drop);overflow:hidden}
+.scr{position:relative;width:100%;aspect-ratio:720/1504;border-radius:28px;overflow:hidden;background:linear-gradient(170deg,#0f2a1d,#04100a);color:#eafff3;text-align:left;padding:0;font-size:.72rem}
+.scr img{display:block;width:100%;height:100%;object-fit:cover;background:#04100a}
+.scr h3{margin:0 0 10px;font-size:.82rem;line-height:1.4;font-weight:800}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;margin-bottom:7px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(120,255,190,.18)}
+.row b{font-size:.74rem;font-weight:800}.row em{font-style:normal;color:#9bbcaa;font-size:.66rem}
+.row.hl{background:linear-gradient(160deg,#52f0a6,#14b36d);color:#04130b;border-color:transparent}.row.hl em{color:#0b4a2e}
+.cap{margin:14px 0 0;font-weight:800;font-size:.95rem}
+.cap small{display:block;font-weight:400;color:var(--muted);font-size:.82rem}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:6px}
+.dots button{appearance:none;width:9px;height:9px;padding:0;border-radius:50%;border:0;background:var(--muted);opacity:.35;cursor:pointer}
+.dots button.on{opacity:1;width:24px;border-radius:6px;background:var(--g2)}
+@media (min-width:760px){.slide{width:240px}.car{justify-content:flex-start}}
+@media (prefers-reduced-motion: reduce){.slide{transition:none}}
+
 /* tiles */
 .why{padding:64px 0 8px}
 .why h2{text-align:center;margin-bottom:10px}
@@ -142,6 +165,64 @@ footer{padding:30px 0 48px;text-align:center;color:var(--muted);font-size:.9rem}
   .tile b{font-size:1.3rem}
 }
 @media (prefers-reduced-motion: reduce){.ph-s.now::before{animation:none}}
+
+/* AI assistant */
+.ai-fab{position:fixed;z-index:50;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:64px;height:64px;padding:0;border:0;background:none;cursor:pointer;border-radius:50%}
+.ai-fab .gl{width:64px;height:64px;border-radius:50%;animation:aiFloat 3.2s ease-in-out infinite}
+.ai-fab:focus-visible{outline:3px solid var(--g1);outline-offset:3px}
+.ai-fab i{position:absolute;right:2px;top:2px;width:15px;height:15px;border-radius:50%;background:#52f0a6;border:2px solid var(--bg);z-index:2}
+@keyframes aiFloat{50%{transform:translateY(-4px)}}
+.ai-tip{position:fixed;z-index:50;right:16px;bottom:calc(92px + env(safe-area-inset-bottom,0px));max-width:min(270px,calc(100vw - 32px));padding:12px 16px;border-radius:18px 18px 4px 18px;font-weight:800;font-size:.95rem;line-height:1.5;color:var(--ink);background:var(--bg);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);cursor:pointer;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .3s,transform .3s}
+.ai-tip.show{opacity:1;transform:none;pointer-events:auto}
+.ai-panel{position:fixed;z-index:60;right:12px;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));height:min(78dvh,620px);max-width:420px;margin-left:auto;display:none;flex-direction:column;overflow:hidden;border-radius:26px;background:var(--bg);color:var(--ink);border:1px solid var(--edge);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.ai-panel.open{display:flex}
+.ai-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(160deg,var(--g1),var(--g2));color:#04130b}
+.ai-head .gl.sm{flex:none}
+.ai-head b{display:block;font-size:1rem;line-height:1.3}
+.ai-head small{display:block;font-size:.75rem;line-height:1.3;font-weight:600}
+.ai-head div{flex:1;min-width:0}
+.ai-x{appearance:none;border:0;background:rgba(255,255,255,.35);color:#04130b;width:36px;height:36px;border-radius:50%;font-size:1.1rem;font-weight:900;cursor:pointer}
+.ai-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain}
+.ai-log .m{max-width:86%;padding:10px 14px;border-radius:18px;font-size:.95rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.ai-log .bot{align-self:flex-start;background:var(--glass);border:1px solid var(--edge);border-bottom-left-radius:4px}
+.ai-log .me{align-self:flex-end;color:#04130b;background:linear-gradient(160deg,var(--g1),var(--g2));border-bottom-right-radius:4px;font-weight:600}
+.ai-chips{display:flex;gap:8px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}
+.ai-chips::-webkit-scrollbar{display:none}
+.ai-chips button{flex:none;appearance:none;font:inherit;font-size:.82rem;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid var(--edge);background:var(--glass);color:var(--ink);cursor:pointer}
+.ai-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--edge)}
+.ai-form input{flex:1;min-width:0;font:inherit;font-size:16px;padding:12px 16px;border-radius:999px;border:1px solid var(--edge);background:var(--glass);color:var(--ink)}
+.ai-form input:focus-visible{outline:2px solid var(--g2)}
+.ai-form button{flex:none;appearance:none;border:0;width:46px;height:46px;border-radius:50%;font-size:1.2rem;font-weight:900;cursor:pointer;color:#04130b;background:linear-gradient(160deg,var(--g1),var(--g2))}
+.ai-form button:disabled{opacity:.5}
+.ai-note{padding:0 14px 10px;font-size:.72rem;color:var(--muted);text-align:center}
+@media (min-width:600px){.ai-panel{left:auto;right:20px;bottom:20px}.ai-fab{right:20px;bottom:20px}.ai-tip{right:20px;bottom:96px}}
+@media (prefers-reduced-motion: reduce){.ai-fab .gl{animation:none}.ai-tip{transition:none}}
+
+/* language bar */
+.lang{margin-left:auto;display:flex;align-items:center;gap:6px;min-width:0}
+.lang select{appearance:none;-webkit-appearance:none;font:inherit;font-size:16px;font-weight:800;color:var(--ink);min-height:38px;max-width:150px;padding:4px 30px 4px 14px;border-radius:999px;cursor:pointer;border:1px solid var(--edge);background:linear-gradient(145deg,var(--glass),var(--glass2)) ,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2314b36d' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center}
+.lang select option{color:#08130d;background:#fff}
+.lang select:focus-visible{outline:3px solid var(--g1);outline-offset:2px}
+.lang span{font-size:1.15rem}
+body{top:0!important}.skiptranslate iframe,.goog-te-banner-frame,#goog-gt-tt,.goog-tooltip{display:none!important}
+#gt_el{display:none}
+
+.top{min-width:0;padding-right:8px}
+.top .gl.sm{flex:none}
+.ttl{flex:1 1 auto;min-width:0;font-size:.95rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lang{flex:none}
+.lang span{display:none}
+.lang select{width:112px;max-width:112px;padding:4px 26px 4px 12px;text-overflow:ellipsis;background-position:right 10px center}
+@media (min-width:420px){.lang select{width:150px;max-width:150px}.lang span{display:inline}}
+.ai-fab,.ai-fab .gl{width:58px;height:58px}
+
+.kural{margin:14px 0 0;padding:14px 18px;border-radius:22px;text-align:center;background:linear-gradient(145deg,var(--glass),var(--glass2));-webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);border:1px solid var(--edge);box-shadow:inset 0 1px 1px var(--edge),0 12px 32px var(--drop);animation:kIn .6s ease}
+.k-h{display:flex;justify-content:center;gap:8px;font-size:.78rem;font-weight:800;letter-spacing:.08em;color:var(--g3)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .k-h{color:var(--g1)}}
+.k-t{margin:6px 0 6px;font-weight:900;font-size:clamp(1.05rem,4.4vw,1.35rem);line-height:1.6}
+.k-m{margin:0;color:var(--muted);font-size:.92rem;line-height:1.65}
+@keyframes kIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.kural{animation:none}}
 </style>
 </head>
 <body>
@@ -171,87 +252,258 @@ footer{padding:30px 0 48px;text-align:center;color:var(--muted);font-size:.9rem}
 
 <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="wrap">
-  <div class="top"><span class="gl sm"><svg aria-hidden="true"><use href="#bus"/></svg></span>பேருந்து நேரங்கள்</div>
+  <div class="top"><span class="gl sm"><svg aria-hidden="true"><use href="#bus"/></svg></span><span class="ttl" data-i="0">பேருந்து நேரங்கள்</span><div class="lang notranslate" translate="no"><span aria-hidden="true">🌐</span><select id="lang" aria-label="மொழி / Language"><option value="ta">தமிழ்</option><option value="en">English</option><option value="hi">हिन्दी</option><option value="te">తెలుగు</option><option value="ml">മലയാളം</option><option value="kn">ಕನ್ನಡ</option><option value="bn">বাংলা</option><option value="mr">मराठी</option><option value="gu">ગુજરાતી</option><option value="pa">ਪੰਜਾਬੀ</option><option value="ur">اردو</option><option value="or">ଓଡ଼ିଆ</option><option value="as">অসমীয়া</option></select></div></div>
+  <div id="gt_el"></div>
+  <aside class="kural" id="kural"><div class="k-h"><span data-i="55">திருக்குறள்</span><b id="kNo"></b></div><p class="k-t notranslate" translate="no" id="kT" lang="ta"></p><p class="k-m" id="kM" lang="ta"></p></aside>
 
   <header class="hero">
     <span class="gl lg" role="img" aria-label="பேருந்து நேரங்கள் லோகோ"><svg aria-hidden="true"><use href="#bus"/></svg></span>
-    <h1>பஸ் எங்கே?<br>இப்போதே தெரியும்.</h1>
-    <p class="lead">பேருந்து நேரங்கள் என்பது Android-க்கான இலவச ஆப். பஸ் நேரம், ஓடும் நிலை, அடுத்த நிறுத்தங்களின் நேரம் – எல்லாம் ஒரே இடத்தில்.</p>
+    <h1 data-i="1">பஸ் எங்கே?<br>இப்போதே தெரியும்.</h1>
+    <p class="lead" data-i="2">பேருந்து நேரங்கள் என்பது Android-க்கான இலவச ஆப். பஸ் நேரம், ஓடும் நிலை, அடுத்த நிறுத்தங்களின் நேரம் – எல்லாம் ஒரே இடத்தில்.</p>
     <div class="actions">
-      <a class="btn main" id="dl" href="bus-app.apk" download="bus-app.apk">APK பதிவிறக்கு</a>
-      <button class="btn alt" id="share">நண்பர்களுக்குப் பகிர்</button>
+      <a class="btn main" id="dl" href="bus-app.apk" download="bus-app.apk" data-i="3">APK பதிவிறக்கு</a>
+      <button class="btn alt" id="share" data-i="4">நண்பர்களுக்குப் பகிர்</button>
     </div>
     <div id="status" role="status" aria-live="polite"></div>
-    <p class="note">பதிவிறக்கம் 100%-ல் நின்றால், வேறு உலாவியில் (Chrome) முயற்சி செய்யுங்கள்.</p>
+    <p class="note" data-i="5">பதிவிறக்கம் 100%-ல் நின்றால், வேறு உலாவியில் (Chrome) முயற்சி செய்யுங்கள்.</p>
   </header>
 
   <section class="show" aria-label="ஆப் திரைகள்">
-    <h2>பயணத்துக்கு ஏற்ற<br>எளிய திரை</h2>
-    <div class="phones">
-      <div class="phone">
-        <div class="ph-h">இறைமங்கலம் → திருச்செங்கோடு</div>
-        <div class="ph-r">
-          <div class="ph-s"><b>இறைமங்கலம்</b><em>புறப்பாடு</em></div>
-          <div class="ph-s now"><b>நடுவழி</b><em>வருகை</em></div>
-          <div class="ph-s"><b>திருச்செங்கோடு</b><em>வருகை</em></div>
-        </div>
-        <span class="ph-chip">ஓடிக்கொண்டிருக்கிறது</span>
-      </div>
-      <div class="phone">
-        <div class="ph-h">நேரம் புதுப்பி</div>
-        <div class="ph-r">
-          <div class="ph-s"><b>நிறுத்தம் 1</b><em>தாமதம்</em></div>
-          <div class="ph-s now"><b>நிறுத்தம் 2</b><em>+5 நிமிடம்</em></div>
-          <div class="ph-s"><b>நிறுத்தம் 3</b><em>+5 நிமிடம்</em></div>
-          <div class="ph-s"><b>நிறுத்தம் 4</b><em>+5 நிமிடம்</em></div>
-        </div>
-        <span class="ph-chip">தானாக மாறும்</span>
-      </div>
+    <span class="eyebrow" data-i="6">செயலில் பாருங்கள்</span>
+    <h2 data-i="7">பயணத்துக்கு ஏற்ற<br>எளிய திரை</h2>
+    <div class="car" id="car" tabindex="0" aria-label="ஆப் ஸ்கிரீன்ஷாட்கள்">
+      <figure class="slide on" style="margin:0">
+        <div class="dev"><div class="scr"><img src="screens/1.jpg" alt="முகப்புத் திரை" width="480" height="1003"></div></div>
+        <figcaption class="cap"><span data-i="8">முகப்புத் திரை</span><small data-i="9">இப்போது ஓடும் & அடுத்த பேருந்துகள்</small></figcaption>
+      </figure>
+      <figure class="slide" style="margin:0">
+        <div class="dev"><div class="scr"><img src="screens/2.jpg" alt="பேருந்து விவரம்" width="480" height="1003" loading="lazy"></div></div>
+        <figcaption class="cap"><span data-i="10">பேருந்து விவரம்</span><small data-i="11">நேரம், நிறுத்தங்கள், பயண நேரம்</small></figcaption>
+      </figure>
+      <figure class="slide" style="margin:0">
+        <div class="dev"><div class="scr"><img src="screens/3.jpg" alt="நிறுத்தங்கள் & நேரங்கள்" width="480" height="1003" loading="lazy"></div></div>
+        <figcaption class="cap"><span data-i="12">நிறுத்தங்கள் & நேரங்கள்</span><small data-i="13">ஒவ்வொரு நிறுத்தத்தின் நேரம்</small></figcaption>
+      </figure>
+      <figure class="slide" style="margin:0">
+        <div class="dev"><div class="scr"><img src="screens/4.jpg" alt="நாட்காட்டி" width="480" height="1003" loading="lazy"></div></div>
+        <figcaption class="cap"><span data-i="14">நாட்காட்டி</span><small data-i="15">தேதி வாரியாகப் பாருங்கள்</small></figcaption>
+      </figure>
+      <figure class="slide" style="margin:0">
+        <div class="dev"><div class="scr"><img src="screens/5.jpg" alt="மெனு" width="480" height="1003" loading="lazy"></div></div>
+        <figcaption class="cap"><span data-i="16">மெனு</span><small data-i="17">மொழி, தீம், பழைய நேரங்கள், கருத்து</small></figcaption>
+      </figure>
+      <figure class="slide" style="margin:0">
+        <div class="dev"><div class="scr"><img src="screens/6.jpg" alt="Bus Dash விளையாட்டு" width="480" height="1003" loading="lazy"></div></div>
+        <figcaption class="cap"><span data-i="18">Bus Dash விளையாட்டு</span><small data-i="19">காத்திருக்கும்போது விளையாடுங்கள்</small></figcaption>
+      </figure>
     </div>
+    <div class="dots" id="dots"></div>
   </section>
 
   <section class="why">
-    <h2>தேவையானது மட்டும்</h2>
-    <p>பஸ்ஸுக்காகக் காத்திருப்பவர்களுக்காக உருவாக்கப்பட்டது.</p>
+    <h2 data-i="20">தேவையானது மட்டும்</h2>
+    <p data-i="21">பஸ்ஸுக்காகக் காத்திருப்பவர்களுக்காக உருவாக்கப்பட்டது.</p>
     <div class="tiles">
-      <div class="tile gr"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>பஸ் நேரம்</b><p>ஒவ்வொரு நிறுத்தத்தின் வருகை, புறப்பாடு நேரம்.</p></div>
-      <div class="tile bk"><svg viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><b>ஓடும் நிலை</b><p>பஸ் இப்போது எங்கே உள்ளது என்று பாருங்கள்.</p></div>
-      <div class="tile gl3"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0114-5l2 2M20 12a8 8 0 01-14 5l-2-2"/><path d="M20 4v5h-5M4 20v-5h5"/></svg><b>தானாகப் புதுப்பிப்பு</b><p>ஒரு நிறுத்தத்தில் நேரம் மாற்றினால் அடுத்த நிறுத்தங்களும் மாறும்.</p></div>
-      <div class="tile gr"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-4M8.2 13l7.6 4"/></svg><b>எளிதாகப் பகிர்</b><p>ஆப்பை நண்பர்களுக்கு ஒரே தொடுதலில் அனுப்புங்கள்.</p></div>
-      <div class="tile gl3"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><b>இலவசம்</b><p>பதிவு தேவையில்லை. நிறுவி உடனே பயன்படுத்தலாம்.</p></div>
-      <div class="tile bk"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg><b>போனுக்கு ஏற்றது</b><p>பெரிய எழுத்து, எளிய திரை, வேகமாகத் திறக்கும்.</p></div>
+      <div class="tile gr"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b data-i="22">பஸ் நேரம்</b><p data-i="23">ஒவ்வொரு நிறுத்தத்தின் வருகை, புறப்பாடு நேரம்.</p></div>
+      <div class="tile bk"><svg viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><b data-i="24">ஓடும் நிலை</b><p data-i="25">பஸ் இப்போது எங்கே உள்ளது என்று பாருங்கள்.</p></div>
+      <div class="tile gl3"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0114-5l2 2M20 12a8 8 0 01-14 5l-2-2"/><path d="M20 4v5h-5M4 20v-5h5"/></svg><b data-i="26">தானாகப் புதுப்பிப்பு</b><p data-i="27">ஒரு நிறுத்தத்தில் நேரம் மாற்றினால் அடுத்த நிறுத்தங்களும் மாறும்.</p></div>
+      <div class="tile gr"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-4M8.2 13l7.6 4"/></svg><b data-i="28">எளிதாகப் பகிர்</b><p data-i="29">ஆப்பை நண்பர்களுக்கு ஒரே தொடுதலில் அனுப்புங்கள்.</p></div>
+      <div class="tile gl3"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><b data-i="30">இலவசம்</b><p data-i="31">பதிவு தேவையில்லை. நிறுவி உடனே பயன்படுத்தலாம்.</p></div>
+      <div class="tile bk"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg><b data-i="32">போனுக்கு ஏற்றது</b><p data-i="33">பெரிய எழுத்து, எளிய திரை, வேகமாகத் திறக்கும்.</p></div>
     </div>
   </section>
 
   <section class="how">
-    <h2>நிறுவுவது எப்படி?</h2>
+    <h2 data-i="34">நிறுவுவது எப்படி?</h2>
     <div class="steps">
-      <div class="step"><span>1</span><div><b>APK-ஐப் பதிவிறக்குங்கள்</b><p>மேலே உள்ள “APK பதிவிறக்கு” பட்டனை அழுத்துங்கள்.</p></div></div>
-      <div class="step"><span>2</span><div><b>கோப்பைத் திறங்கள்</b><p>பதிவிறக்கம் முடிந்ததும் அறிவிப்பில் அல்லது Downloads-ல் கோப்பைத் தொடுங்கள்.</p></div></div>
-      <div class="step"><span>3</span><div><b>அனுமதி கொடுங்கள்</b><p>“இந்த மூலத்திலிருந்து நிறுவ அனுமதி” என்று கேட்டால் அனுமதியுங்கள்.</p></div></div>
-      <div class="step"><span>4</span><div><b>நிறுவு அழுத்துங்கள்</b><p>நிறுவல் முடிந்ததும் ஆப்பைத் திறந்து பயன்படுத்துங்கள்.</p></div></div>
+      <div class="step"><span>1</span><div><b data-i="35">APK-ஐப் பதிவிறக்குங்கள்</b><p data-i="36">மேலே உள்ள “APK பதிவிறக்கு” பட்டனை அழுத்துங்கள்.</p></div></div>
+      <div class="step"><span>2</span><div><b data-i="37">கோப்பைத் திறங்கள்</b><p data-i="38">பதிவிறக்கம் முடிந்ததும் அறிவிப்பில் அல்லது Downloads-ல் கோப்பைத் தொடுங்கள்.</p></div></div>
+      <div class="step"><span>3</span><div><b data-i="39">அனுமதி கொடுங்கள்</b><p data-i="40">“இந்த மூலத்திலிருந்து நிறுவ அனுமதி” என்று கேட்டால் அனுமதியுங்கள்.</p></div></div>
+      <div class="step"><span>4</span><div><b data-i="41">நிறுவு அழுத்துங்கள்</b><p data-i="42">நிறுவல் முடிந்ததும் ஆப்பைத் திறந்து பயன்படுத்துங்கள்.</p></div></div>
     </div>
   </section>
 
   <section class="end">
-    <h2>இன்றே நிறுவுங்கள்</h2>
-    <a class="btn main" href="bus-app.apk" download="bus-app.apk">APK பதிவிறக்கு</a>
+    <h2 data-i="43">இன்றே நிறுவுங்கள்</h2>
+    <a class="btn main" href="bus-app.apk" download="bus-app.apk" data-i="3">APK பதிவிறக்கு</a>
   </section>
 
-  <footer>© பேருந்து நேரங்கள்</footer>
+  <footer data-i="44">© பேருந்து நேரங்கள்</footer>
 </div>
+
+
+<button class="ai-fab" id="aiFab" aria-label="AI உதவியாளரைத் திற" aria-expanded="false"><span class="gl"><svg aria-hidden="true"><use href="#bus"/></svg></span><i aria-hidden="true"></i></button>
+<div class="ai-tip" id="aiTip" role="status" data-i="45">வணக்கம்! 👋 பஸ் பற்றி எதுவும் கேளுங்கள் – 24 மணி நேரமும் பதில் சொல்வேன்.</div>
+<section class="ai-panel" id="aiPanel" role="dialog" aria-label="AI உதவியாளர்">
+  <div class="ai-head"><span class="gl sm"><svg aria-hidden="true"><use href="#bus"/></svg></span><div><b data-i="46">பேருந்து உதவியாளர்</b><small data-i="47">🟢 24/7 – எப்போதும் ஆன்லைன்</small></div><button class="ai-x" id="aiClose" aria-label="மூடு">✕</button></div>
+  <div class="ai-log" id="aiLog" aria-live="polite"></div>
+  <div class="ai-chips" id="aiChips"></div>
+  <form class="ai-form" id="aiForm" autocomplete="off"><input id="aiIn" type="text" maxlength="400" placeholder="உங்கள் கேள்வியை எழுதுங்கள்…" aria-label="உங்கள் கேள்வி"><button id="aiSend" type="submit" aria-label="அனுப்பு">➤</button></form>
+  <div class="ai-note" data-i="49">AI பதில்கள் சில நேரம் தவறாக இருக்கலாம்.</div>
+</section>
 
 <script>
 var statusEl = document.getElementById("status");
 function say(t){ statusEl.textContent = t; }
-document.getElementById("dl").addEventListener("click", function(){ say("பதிவிறக்கம் தொடங்குகிறது..."); });
+document.getElementById("dl").addEventListener("click", function(){ say((window.T&&T(56))||"பதிவிறக்கம் தொடங்குகிறது..."); });
 document.getElementById("share").addEventListener("click", function(){
   var url = location.href.split("#")[0];
   var text = "பேருந்து நேரங்கள் – பஸ் எங்கே வருகிறது என்று இந்த ஆப்பில் பாருங்கள்:";
   if (navigator.share) { navigator.share({title:"பேருந்து நேரங்கள்", text:text, url:url}).catch(function(){}); }
-  else if (navigator.clipboard) { navigator.clipboard.writeText(url).then(function(){ say("இணைப்பு நகலெடுக்கப்பட்டது. நண்பர்களுக்கு அனுப்புங்கள்."); }, function(){ say("இணைப்பு: " + url); }); }
+  else if (navigator.clipboard) { navigator.clipboard.writeText(url).then(function(){ say((window.T&&T(57))||"இணைப்பு நகலெடுக்கப்பட்டது. நண்பர்களுக்கு அனுப்புங்கள்."); }, function(){ say("இணைப்பு: " + url); }); }
   else { say("இணைப்பு: " + url); }
 });
+
+(function(){
+  var car=document.getElementById("car"),dots=document.getElementById("dots");
+  if(!car)return;
+  var slides=[].slice.call(car.children);
+  slides.forEach(function(sl,i){
+    var b=document.createElement("button");b.setAttribute("aria-label","திரை "+(i+1));
+    b.onclick=function(){sl.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"})};
+    dots.appendChild(b);
+  });
+  var ds=[].slice.call(dots.children);
+  function upd(){
+    var c=car.getBoundingClientRect(),mid=c.left+c.width/2,best=0,bd=1e9;
+    slides.forEach(function(sl,i){var r=sl.getBoundingClientRect(),d=Math.abs(r.left+r.width/2-mid);if(d<bd){bd=d;best=i}});
+    slides.forEach(function(sl,i){sl.classList.toggle("on",i===best);ds[i].classList.toggle("on",i===best)});
+  }
+  var t;car.addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(upd,40)},{passive:true});
+  upd();
+})();
+
+/* AI assistant */
+(function(){
+  // உங்கள் சர்வர் (ai-worker.js) முகவரியை இங்கே கொடுங்கள். காலியாக இருந்தால் உள்ளமைந்த பதில்கள் பயன்படும்.
+  var ENDPOINT = window.BUS_AI_ENDPOINT || "";
+  var SYS = "நீ 'பேருந்து நேரங்கள்' என்ற இலவச Android ஆப்பின் வெப்சைட் உதவியாளர். எப்போதும் பயனர் எழுதும் மொழியில் (பெரும்பாலும் தமிழ்) சுருக்கமாக, நட்பாகப் பதில் சொல். ஆப் தகவல்: பஸ் நேரம், இப்போது ஓடும் பேருந்துகள், அடுத்த பேருந்துகள், நிறுத்தங்களின் நேரம், ஒரு நிறுத்தத்தில் நேரம் மாற்றினால் அடுத்த நிறுத்தங்களும் தானாக மாறும், நாட்காட்டி, பழைய நேரங்கள் (தேதி தேடல்), மொழி மற்றும் தீம் மாற்றம், கருத்து அனுப்புதல், Bus Dash விளையாட்டு, நண்பர்களுக்குப் பகிர்தல். ஆப் இலவசம், பதிவு தேவையில்லை. நிறுவல்: 1) APK பதிவிறக்கு 2) கோப்பைத் திற 3) இந்த மூலத்திலிருந்து நிறுவ அனுமதி கொடு 4) நிறுவு அழுத்து. பதிவிறக்கம் 100%-ல் நின்றால் Chrome உலாவியில் முயற்சி செய். தெரியாத தகவல்களை (குறிப்பிட்ட பஸ் நேரம் போன்றவை) ஊகிக்காதே; ஆப்பைத் திறந்து பார்க்கச் சொல் அல்லது தெரியவில்லை என்று சொல்.";
+  var FAQ = [
+    [["நிறுவ","install","இன்ஸ்டால்","எப்படி போட"],"நிறுவும் முறை:\n1) “APK பதிவிறக்கு” பட்டனை அழுத்துங்கள்\n2) பதிவிறக்கம் முடிந்ததும் கோப்பைத் தொடுங்கள்\n3) “இந்த மூலத்திலிருந்து நிறுவ அனுமதி” என்று கேட்டால் அனுமதியுங்கள்\n4) “நிறுவு” அழுத்துங்கள்."],
+    [["100","நின்ற","நிற்கிற","பதிவிறக்கம்","download","டவுன்லோட்"],"பதிவிறக்கம் 100%-ல் நின்றால் Chrome உலாவியில் மீண்டும் முயற்சி செய்யுங்கள். பிறகு அறிவிப்பில் அல்லது Downloads-ல் கோப்பைத் தொடுங்கள்."],
+    [["இலவச","விலை","காசு","பணம்","free","கட்டண"],"ஆப் முற்றிலும் இலவசம். பதிவு தேவையில்லை; நிறுவி உடனே பயன்படுத்தலாம்."],
+    [["வசதி","என்ன செய","feature","பயன்"],"ஆப்பில் உள்ளவை: பஸ் நேரம், இப்போது ஓடும் பேருந்துகள், நிறுத்தங்களின் நேரம், தானாகப் புதுப்பிப்பு, நாட்காட்டி, பழைய நேரங்கள் (தேதி தேடல்), மொழி/தீம் மாற்றம், கருத்து, Bus Dash விளையாட்டு, பகிர்வு."],
+    [["ஓடும்","எங்கே","இப்போது","live","லைவ்","அருகில்"],"முகப்புத் திரையில் “இப்போது ஓடும் பேருந்துகள்” பகுதியில் பஸ் இப்போது எங்கே உள்ளது என்று தெரியும். பேருந்தைத் தொட்டால் முழு விவரமும் நிறுத்தங்களின் நேரமும் வரும்."],
+    [["நேரம்","time","எப்போது","டைம்"],"ஒவ்வொரு நிறுத்தத்தின் நேரத்தையும் பார்க்க, ஆப்பில் பேருந்தைத் தொட்டு “நிறுத்தங்கள் & நேரங்கள்” பகுதியைத் திறங்கள். குறிப்பிட்ட பஸ்ஸின் நேரத்தை ஆப்பில்தான் உறுதியாகப் பார்க்க முடியும்."],
+    [["தாமத","மாற்ற","புதுப்பி","update"],"ஒரு நிறுத்தத்தில் நேரத்தை மாற்றினால், அடுத்த நிறுத்தங்களின் நேரங்களும் தானாகவே மாறும்."],
+    [["பழைய","தேதி","நாட்காட்டி","calendar","நேற்று"],"நாட்காட்டியில் தேதியைத் தேர்ந்தெடுக்கலாம். மெனுவில் “பழைய நேரங்கள் (தேதி தேடல்)” மூலம் முந்தைய நாட்களின் நேரங்களையும் பார்க்கலாம்."],
+    [["விளையாட்டு","game","dash","டாஷ்"],"ஆப்பில் Bus Dash என்ற சிறிய விளையாட்டு உள்ளது. இடது/வலது தொட்டு பேருந்தை நகர்த்தி, தடைகளைத் தவிர்த்து ⭐ சேகரியுங்கள்!"],
+    [["மொழி","தீம்","dark","டார்க்","language"],"மெனுவில் (☰) மொழி மற்றும் தீம் மாற்றும் வசதி உள்ளது."],
+    [["பகிர்","share","நண்பர்"],"மேலே உள்ள “நண்பர்களுக்குப் பகிர்” பட்டனை அழுத்தினால் இந்த வெப்சைட் இணைப்பை உடனே பகிரலாம்."],
+    [["கருத்து","feedback","புகார்","தொடர்பு","குறை"],"ஆப்பின் மெனுவில் (☰) “கருத்து” பகுதியில் உங்கள் கருத்து அல்லது புகாரை அனுப்பலாம்."],
+    [["வணக்கம்","hi","hello","ஹாய்","hey"],"வணக்கம்! 🚌 ஆப்பை நிறுவுவது, பஸ் நேரம், வசதிகள் பற்றி என்ன வேண்டுமானாலும் கேளுங்கள்."]
+  ];
+  var DEFAULT = "மன்னிக்கவும், இதற்கு என்னிடம் உறுதியான பதில் இல்லை. நிறுவுவது, இலவசமா, வசதிகள், பஸ் நேரம் பார்ப்பது பற்றிக் கேளுங்கள்; அல்லது ஆப்பில் “கருத்து” பகுதியில் எழுதுங்கள்.";
+  var $=function(i){return document.getElementById(i)};
+  var fab=$("aiFab"),tip=$("aiTip"),panel=$("aiPanel"),log=$("aiLog"),form=$("aiForm"),inp=$("aiIn"),send=$("aiSend"),chips=$("aiChips");
+  if(!fab)return;
+  var hist=[],busy=false,greeted=false;
+
+  function add(role,text){var d=document.createElement("div");d.className="m "+role;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+  function clean(t){return String(t||"").replace(/\*\*|__|`/g,"").replace(/^#+\s*/gm,"").trim()}
+  function faq(q){var l=q.toLowerCase();for(var i=0;i<FAQ.length;i++){for(var j=0;j<FAQ[i][0].length;j++){if(l.indexOf(FAQ[i][0][j].toLowerCase())>-1)return FAQ[i][1]}}return DEFAULT}
+
+  function viaEndpoint(){
+    var ctl=new AbortController(),tm=setTimeout(function(){ctl.abort()},25000);
+    return fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:hist.slice(-10)}),signal:ctl.signal})
+      .then(function(r){clearTimeout(tm);if(!r.ok)throw new Error("http");return r.json()})
+      .then(function(j){if(!j||!j.reply)throw new Error("empty");return j.reply});
+  }
+  function viaSample(bubble){
+    if(!(window.claude&&window.claude.use))return Promise.reject(new Error("none"));
+    return window.claude.use("sample").then(function(sample){
+      if(!sample)throw new Error("none");
+      var t=SYS+"\n\nஉரையாடல்:\n"+hist.slice(-10).map(function(m){return (m.role==="user"?"பயனர்: ":"உதவியாளர்: ")+m.content}).join("\n")+"\nஉதவியாளர்:";
+      return sample(t,{cache:false,modelTier:"quick",onText:function(o){if(o&&o.text)bubble.textContent=clean(o.text)}});
+    }).then(function(r){return r.text});
+  }
+  function ask(q,bubble,fq){
+    var p=ENDPOINT?viaEndpoint():viaSample(bubble);
+    return p.catch(function(){return faq(fq||q)});
+  }
+
+  function submit(q,fq){
+    q=(q||"").trim();if(!q||busy)return;
+    busy=true;send.disabled=true;inp.value="";chips.style.display="none";
+    add("me",q);hist.push({role:"user",content:q});
+    var b=add("bot","…");
+    ask(q,b,fq).then(function(a){a=clean(a)||DEFAULT;b.textContent=a;hist.push({role:"assistant",content:a});log.scrollTop=log.scrollHeight})
+      .then(function(){busy=false;send.disabled=false;inp.focus()});
+  }
+  function open(){
+    panel.classList.add("open");tip.classList.remove("show");fab.style.display="none";fab.setAttribute("aria-expanded","true");
+    if(!greeted){greeted=true;add("bot",tt(50,"வணக்கம்! 🚌 நான் பேருந்து நேரங்கள் உதவியாளர். ஆப்பை நிறுவுவது, வசதிகள், பஸ் நேரம் – எதுவானாலும் கேளுங்கள்."))}
+    setTimeout(function(){inp.focus()},50);
+  }
+  function close(){panel.classList.remove("open");fab.style.display="";fab.setAttribute("aria-expanded","false");fab.focus()}
+
+  var CH=[[51,"ஆப்பை எப்படி நிறுவுவது?"],[52,"இது இலவசமா?"],[53,"என்ன வசதிகள் உள்ளன?"],[54,"பஸ் எங்கே என்று எப்படிப் பார்ப்பது?"]];
+  function tt(k,d){return (window.T&&window.T(k))||d}
+  function mkChips(){chips.innerHTML="";CH.forEach(function(c){var b=document.createElement("button");b.type="button";b.textContent=tt(c[0],c[1]);b.onclick=function(){submit(tt(c[0],c[1]),c[1])};chips.appendChild(b)})}
+  mkChips();
+  window.aiRefresh=function(){mkChips();inp.placeholder=tt(48,"உங்கள் கேள்வியை எழுதுங்கள்…")};
+  fab.onclick=open;tip.onclick=open;$("aiClose").onclick=close;
+  form.addEventListener("submit",function(e){e.preventDefault();submit(inp.value)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&panel.classList.contains("open"))close()});
+
+  var seen=false;try{seen=sessionStorage.getItem("aiTip")==="1"}catch(e){}
+  if(!seen){
+    setTimeout(function(){if(!panel.classList.contains("open")){tip.classList.add("show");try{sessionStorage.setItem("aiTip","1")}catch(e){}}},2500);
+    setTimeout(function(){tip.classList.remove("show")},12000);
+  }
+})();
+
+/* language bar (Google Translate) + Thirukkural */
+(function(){
+  var D={"en": ["Bus Times", "Where's the bus?<br>Know it right now.", "Bus Times is a free Android app. Bus timings, live running status and next stop times – all in one place.", "Download APK", "Share with friends", "If the download stalls at 100%, try a different browser (Chrome).", "See it in action", "A simple screen<br>made for travel", "Home screen", "Running and upcoming buses", "Bus details", "Timings, stops, travel time", "Stops and timings", "Time at every stop", "Calendar", "Browse by date", "Menu", "Language, theme, past timings, feedback", "Bus Dash game", "Play while you wait", "Only what you need", "Built for people waiting for the bus.", "Bus times", "Arrival and departure time at every stop.", "Live status", "See where the bus is right now.", "Auto update", "Change the time at one stop and the next stops update too.", "Share easily", "Send the app to friends with one tap.", "Free", "No sign-up needed. Install and use right away.", "Made for phones", "Large text, simple screen, opens fast.", "How to install?", "Download the APK", "Tap the “Download APK” button above.", "Open the file", "When the download finishes, tap the file in the notification or in Downloads.", "Give permission", "If asked to allow installing from this source, allow it.", "Tap Install", "After installing, open the app and use it.", "Install today", "© Bus Times", "Hello! 👋 Ask me anything about the bus – I reply 24 hours a day.", "Bus Assistant", "🟢 24/7 – always online", "Type your question…", "AI answers may sometimes be wrong.", "Hello! 🚌 I'm the Bus Times assistant. Ask about installing, features, bus times – anything.", "How do I install the app?", "Is it free?", "What features does it have?", "How do I see where the bus is?", "Thirukkural", "Download is starting...", "Link copied. Send it to your friends."], "hi": ["बस समय", "बस कहाँ है?<br>अभी पता चलेगा।", "बस समय Android के लिए एक मुफ़्त ऐप है। बस का समय, चलने की स्थिति और अगले स्टॉप का समय – सब एक जगह।", "APK डाउनलोड करें", "दोस्तों को शेयर करें", "अगर डाउनलोड 100% पर अटक जाए, तो दूसरे ब्राउज़र (Chrome) में कोशिश करें।", "ऐप को चलते देखें", "सफ़र के लिए बनी<br>सरल स्क्रीन", "होम स्क्रीन", "चल रही और अगली बसें", "बस का विवरण", "समय, स्टॉप, सफ़र का समय", "स्टॉप और समय", "हर स्टॉप का समय", "कैलेंडर", "तारीख़ के हिसाब से देखें", "मेनू", "भाषा, थीम, पुराने समय, सुझाव", "Bus Dash गेम", "इंतज़ार करते हुए खेलें", "बस ज़रूरी चीज़ें", "बस का इंतज़ार करने वालों के लिए बनाया गया।", "बस का समय", "हर स्टॉप पर आने और छूटने का समय।", "चलने की स्थिति", "देखें कि बस अभी कहाँ है।", "अपने-आप अपडेट", "एक स्टॉप का समय बदलें तो अगले स्टॉप भी बदल जाते हैं।", "आसानी से शेयर", "ऐप को एक टच में दोस्तों को भेजें।", "मुफ़्त", "रजिस्ट्रेशन की ज़रूरत नहीं। इंस्टॉल करें और तुरंत इस्तेमाल करें।", "फ़ोन के अनुकूल", "बड़े अक्षर, सरल स्क्रीन, तेज़ खुलता है।", "इंस्टॉल कैसे करें?", "APK डाउनलोड करें", "ऊपर “APK डाउनलोड करें” बटन दबाएँ।", "फ़ाइल खोलें", "डाउनलोड पूरा होने पर नोटिफ़िकेशन या Downloads में फ़ाइल को छुएँ।", "अनुमति दें", "“इस स्रोत से इंस्टॉल की अनुमति” पूछे तो अनुमति दें।", "इंस्टॉल दबाएँ", "इंस्टॉल होने के बाद ऐप खोलकर इस्तेमाल करें।", "आज ही इंस्टॉल करें", "© बस समय", "नमस्ते! 👋 बस के बारे में कुछ भी पूछें – मैं 24 घंटे जवाब देता हूँ।", "बस सहायक", "🟢 24/7 – हमेशा ऑनलाइन", "अपना सवाल लिखें…", "AI के जवाब कभी-कभी गलत हो सकते हैं।", "नमस्ते! 🚌 मैं बस समय सहायक हूँ। इंस्टॉल, सुविधाएँ, बस का समय – कुछ भी पूछें।", "ऐप कैसे इंस्टॉल करें?", "क्या यह मुफ़्त है?", "इसमें क्या सुविधाएँ हैं?", "बस कहाँ है, यह कैसे देखें?", "तिरुक्कुरल", "डाउनलोड शुरू हो रहा है...", "लिंक कॉपी हो गया। दोस्तों को भेजें।"], "te": ["బస్ సమయాలు", "బస్సు ఎక్కడ?<br>ఇప్పుడే తెలుస్తుంది.", "బస్ సమయాలు Android కోసం ఉచిత యాప్. బస్ సమయం, నడుస్తున్న స్థితి, తదుపరి స్టాప్‌ల సమయం – అన్నీ ఒకే చోట.", "APK డౌన్‌లోడ్ చేయండి", "స్నేహితులకు షేర్ చేయండి", "డౌన్‌లోడ్ 100% వద్ద ఆగిపోతే, మరో బ్రౌజర్‌లో (Chrome) ప్రయత్నించండి.", "యాప్‌ను చూడండి", "ప్రయాణానికి తగిన<br>సులభమైన స్క్రీన్", "హోమ్ స్క్రీన్", "నడుస్తున్న, రాబోయే బస్సులు", "బస్ వివరాలు", "సమయాలు, స్టాప్‌లు, ప్రయాణ సమయం", "స్టాప్‌లు, సమయాలు", "ప్రతి స్టాప్ సమయం", "క్యాలెండర్", "తేదీ వారీగా చూడండి", "మెనూ", "భాష, థీమ్, పాత సమయాలు, అభిప్రాయం", "Bus Dash గేమ్", "వేచి ఉన్నప్పుడు ఆడండి", "అవసరమైనవి మాత్రమే", "బస్సు కోసం ఎదురుచూసే వారి కోసం రూపొందించబడింది.", "బస్ సమయం", "ప్రతి స్టాప్‌లో రాక, బయలుదేరే సమయం.", "నడుస్తున్న స్థితి", "బస్సు ఇప్పుడు ఎక్కడ ఉందో చూడండి.", "ఆటో అప్‌డేట్", "ఒక స్టాప్‌లో సమయం మారిస్తే తదుపరి స్టాప్‌లూ మారతాయి.", "సులభంగా షేర్", "యాప్‌ను ఒక్క టచ్‌తో స్నేహితులకు పంపండి.", "ఉచితం", "రిజిస్ట్రేషన్ అవసరం లేదు. ఇన్‌స్టాల్ చేసి వెంటనే వాడండి.", "ఫోన్‌కు అనుకూలం", "పెద్ద అక్షరాలు, సులభమైన స్క్రీన్, వేగంగా తెరుచుకుంటుంది.", "ఇన్‌స్టాల్ ఎలా చేయాలి?", "APK డౌన్‌లోడ్ చేయండి", "పైన ఉన్న “APK డౌన్‌లోడ్ చేయండి” బటన్ నొక్కండి.", "ఫైల్ తెరవండి", "డౌన్‌లోడ్ పూర్తయ్యాక నోటిఫికేషన్‌లో లేదా Downloadsలో ఫైల్‌ను తాకండి.", "అనుమతి ఇవ్వండి", "“ఈ మూలం నుండి ఇన్‌స్టాల్ అనుమతి” అడిగితే అనుమతించండి.", "ఇన్‌స్టాల్ నొక్కండి", "ఇన్‌స్టాల్ అయ్యాక యాప్ తెరిచి వాడండి.", "ఈరోజే ఇన్‌స్టాల్ చేయండి", "© బస్ సమయాలు", "నమస్కారం! 👋 బస్సు గురించి ఏదైనా అడగండి – 24 గంటలూ సమాధానం ఇస్తాను.", "బస్ సహాయకుడు", "🟢 24/7 – ఎల్లప్పుడూ ఆన్‌లైన్", "మీ ప్రశ్న రాయండి…", "AI సమాధానాలు కొన్నిసార్లు తప్పు కావచ్చు.", "నమస్కారం! 🚌 నేను బస్ సమయాల సహాయకుడిని. ఇన్‌స్టాల్, సదుపాయాలు, బస్ సమయం – ఏదైనా అడగండి.", "యాప్ ఎలా ఇన్‌స్టాల్ చేయాలి?", "ఇది ఉచితమా?", "ఏ సదుపాయాలు ఉన్నాయి?", "బస్సు ఎక్కడ ఉందో ఎలా చూడాలి?", "తిరుక్కురళ్", "డౌన్‌లోడ్ ప్రారంభమవుతోంది...", "లింక్ కాపీ అయింది. స్నేహితులకు పంపండి."], "ml": ["ബസ് സമയങ്ങൾ", "ബസ് എവിടെ?<br>ഇപ്പോൾ തന്നെ അറിയാം.", "ബസ് സമയങ്ങൾ Android-നുള്ള സൗജന്യ ആപ്പ് ആണ്. ബസ് സമയം, ഓടുന്ന നില, അടുത്ത സ്റ്റോപ്പുകളുടെ സമയം – എല്ലാം ഒരിടത്ത്.", "APK ഡൗൺലോഡ് ചെയ്യുക", "കൂട്ടുകാർക്ക് പങ്കിടുക", "ഡൗൺലോഡ് 100%-ൽ നിന്നുപോയാൽ, മറ്റൊരു ബ്രൗസറിൽ (Chrome) ശ്രമിക്കുക.", "ആപ്പ് പ്രവർത്തനത്തിൽ കാണുക", "യാത്രയ്ക്ക് യോജിച്ച<br>ലളിതമായ സ്ക്രീൻ", "ഹോം സ്ക്രീൻ", "ഓടുന്നതും വരുന്നതുമായ ബസുകൾ", "ബസ് വിവരങ്ങൾ", "സമയം, സ്റ്റോപ്പുകൾ, യാത്രാസമയം", "സ്റ്റോപ്പുകളും സമയങ്ങളും", "ഓരോ സ്റ്റോപ്പിലെയും സമയം", "കലണ്ടർ", "തീയതി അനുസരിച്ച് കാണുക", "മെനു", "ഭാഷ, തീം, പഴയ സമയങ്ങൾ, അഭിപ്രായം", "Bus Dash ഗെയിം", "കാത്തിരിക്കുമ്പോൾ കളിക്കൂ", "ആവശ്യമുള്ളത് മാത്രം", "ബസിനായി കാത്തിരിക്കുന്നവർക്കായി നിർമ്മിച്ചത്.", "ബസ് സമയം", "ഓരോ സ്റ്റോപ്പിലെയും എത്തുന്നതും പുറപ്പെടുന്നതുമായ സമയം.", "ഓടുന്ന നില", "ബസ് ഇപ്പോൾ എവിടെയാണെന്ന് കാണുക.", "സ്വയം അപ്ഡേറ്റ്", "ഒരു സ്റ്റോപ്പിലെ സമയം മാറ്റിയാൽ അടുത്ത സ്റ്റോപ്പുകളും മാറും.", "എളുപ്പത്തിൽ പങ്കിടുക", "ആപ്പ് ഒറ്റ ടച്ചിൽ കൂട്ടുകാർക്ക് അയയ്ക്കുക.", "സൗജന്യം", "രജിസ്ട്രേഷൻ വേണ്ട. ഇൻസ്റ്റാൾ ചെയ്ത് ഉടൻ ഉപയോഗിക്കാം.", "ഫോണിന് അനുയോജ്യം", "വലിയ അക്ഷരങ്ങൾ, ലളിതമായ സ്ക്രീൻ, വേഗത്തിൽ തുറക്കും.", "എങ്ങനെ ഇൻസ്റ്റാൾ ചെയ്യാം?", "APK ഡൗൺലോഡ് ചെയ്യുക", "മുകളിലെ “APK ഡൗൺലോഡ് ചെയ്യുക” ബട്ടൺ അമർത്തുക.", "ഫയൽ തുറക്കുക", "ഡൗൺലോഡ് കഴിഞ്ഞാൽ അറിയിപ്പിലോ Downloads-ലോ ഫയൽ തൊടുക.", "അനുമതി നൽകുക", "“ഈ ഉറവിടത്തിൽ നിന്ന് ഇൻസ്റ്റാൾ ചെയ്യാൻ അനുമതി” ചോദിച്ചാൽ അനുവദിക്കുക.", "ഇൻസ്റ്റാൾ അമർത്തുക", "ഇൻസ്റ്റാൾ കഴിഞ്ഞാൽ ആപ്പ് തുറന്ന് ഉപയോഗിക്കുക.", "ഇന്നുതന്നെ ഇൻസ്റ്റാൾ ചെയ്യൂ", "© ബസ് സമയങ്ങൾ", "നമസ്കാരം! 👋 ബസിനെക്കുറിച്ച് എന്തും ചോദിക്കൂ – 24 മണിക്കൂറും മറുപടി തരും.", "ബസ് സഹായി", "🟢 24/7 – എപ്പോഴും ഓൺലൈൻ", "നിങ്ങളുടെ ചോദ്യം എഴുതൂ…", "AI മറുപടികൾ ചിലപ്പോൾ തെറ്റായേക്കാം.", "നമസ്കാരം! 🚌 ഞാൻ ബസ് സമയങ്ങളുടെ സഹായിയാണ്. ഇൻസ്റ്റാൾ, സൗകര്യങ്ങൾ, ബസ് സമയം – എന്തും ചോദിക്കൂ.", "ആപ്പ് എങ്ങനെ ഇൻസ്റ്റാൾ ചെയ്യാം?", "ഇത് സൗജന്യമാണോ?", "എന്തൊക്കെ സൗകര്യങ്ങളുണ്ട്?", "ബസ് എവിടെയെന്ന് എങ്ങനെ കാണാം?", "തിരുക്കുറൾ", "ഡൗൺലോഡ് തുടങ്ങുന്നു...", "ലിങ്ക് പകർത്തി. കൂട്ടുകാർക്ക് അയയ്ക്കൂ."], "kn": ["ಬಸ್ ಸಮಯಗಳು", "ಬಸ್ ಎಲ್ಲಿದೆ?<br>ಈಗಲೇ ತಿಳಿಯುತ್ತದೆ.", "ಬಸ್ ಸಮಯಗಳು Android‌ಗಾಗಿ ಉಚಿತ ಆ್ಯಪ್. ಬಸ್ ಸಮಯ, ಓಡುತ್ತಿರುವ ಸ್ಥಿತಿ, ಮುಂದಿನ ನಿಲ್ದಾಣಗಳ ಸಮಯ – ಎಲ್ಲವೂ ಒಂದೇ ಕಡೆ.", "APK ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ", "ಸ್ನೇಹಿತರಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ", "ಡೌನ್‌ಲೋಡ್ 100%ನಲ್ಲಿ ನಿಂತರೆ, ಬೇರೆ ಬ್ರೌಸರ್‌ನಲ್ಲಿ (Chrome) ಪ್ರಯತ್ನಿಸಿ.", "ಆ್ಯಪ್ ಕಾರ್ಯನಿರ್ವಹಿಸುವುದನ್ನು ನೋಡಿ", "ಪ್ರಯಾಣಕ್ಕೆ ತಕ್ಕ<br>ಸರಳ ಪರದೆ", "ಹೋಮ್ ಪರದೆ", "ಓಡುತ್ತಿರುವ ಮತ್ತು ಮುಂದಿನ ಬಸ್‌ಗಳು", "ಬಸ್ ವಿವರ", "ಸಮಯ, ನಿಲ್ದಾಣಗಳು, ಪ್ರಯಾಣದ ಸಮಯ", "ನಿಲ್ದಾಣಗಳು ಮತ್ತು ಸಮಯ", "ಪ್ರತಿ ನಿಲ್ದಾಣದ ಸಮಯ", "ಕ್ಯಾಲೆಂಡರ್", "ದಿನಾಂಕದ ಪ್ರಕಾರ ನೋಡಿ", "ಮೆನು", "ಭಾಷೆ, ಥೀಮ್, ಹಳೆಯ ಸಮಯ, ಅಭಿಪ್ರಾಯ", "Bus Dash ಆಟ", "ಕಾಯುವಾಗ ಆಡಿ", "ಬೇಕಾದದ್ದು ಮಾತ್ರ", "ಬಸ್‌ಗಾಗಿ ಕಾಯುವವರಿಗಾಗಿ ರೂಪಿಸಲಾಗಿದೆ.", "ಬಸ್ ಸಮಯ", "ಪ್ರತಿ ನಿಲ್ದಾಣದ ಆಗಮನ, ನಿರ್ಗಮನ ಸಮಯ.", "ಓಡುತ್ತಿರುವ ಸ್ಥಿತಿ", "ಬಸ್ ಈಗ ಎಲ್ಲಿದೆ ಎಂದು ನೋಡಿ.", "ಸ್ವಯಂ ಅಪ್‌ಡೇಟ್", "ಒಂದು ನಿಲ್ದಾಣದ ಸಮಯ ಬದಲಿಸಿದರೆ ಮುಂದಿನ ನಿಲ್ದಾಣಗಳೂ ಬದಲಾಗುತ್ತವೆ.", "ಸುಲಭ ಹಂಚಿಕೆ", "ಆ್ಯಪ್ ಅನ್ನು ಒಂದೇ ಟಚ್‌ನಲ್ಲಿ ಸ್ನೇಹಿತರಿಗೆ ಕಳುಹಿಸಿ.", "ಉಚಿತ", "ನೋಂದಣಿ ಬೇಡ. ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ ತಕ್ಷಣ ಬಳಸಿ.", "ಫೋನ್‌ಗೆ ಸೂಕ್ತ", "ದೊಡ್ಡ ಅಕ್ಷರ, ಸರಳ ಪರದೆ, ವೇಗವಾಗಿ ತೆರೆಯುತ್ತದೆ.", "ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡುವುದು ಹೇಗೆ?", "APK ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ", "ಮೇಲಿನ “APK ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ” ಬಟನ್ ಒತ್ತಿ.", "ಫೈಲ್ ತೆರೆಯಿರಿ", "ಡೌನ್‌ಲೋಡ್ ಮುಗಿದ ಮೇಲೆ ಅಧಿಸೂಚನೆ ಅಥವಾ Downloadsನಲ್ಲಿ ಫೈಲ್ ಅನ್ನು ಒತ್ತಿ.", "ಅನುಮತಿ ನೀಡಿ", "“ಈ ಮೂಲದಿಂದ ಇನ್‌ಸ್ಟಾಲ್ ಅನುಮತಿ” ಕೇಳಿದರೆ ಅನುಮತಿಸಿ.", "ಇನ್‌ಸ್ಟಾಲ್ ಒತ್ತಿ", "ಇನ್‌ಸ್ಟಾಲ್ ಆದ ಮೇಲೆ ಆ್ಯಪ್ ತೆರೆದು ಬಳಸಿ.", "ಇಂದೇ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ", "© ಬಸ್ ಸಮಯಗಳು", "ನಮಸ್ಕಾರ! 👋 ಬಸ್ ಬಗ್ಗೆ ಏನು ಬೇಕಾದರೂ ಕೇಳಿ – 24 ಗಂಟೆಯೂ ಉತ್ತರಿಸುತ್ತೇನೆ.", "ಬಸ್ ಸಹಾಯಕ", "🟢 24/7 – ಯಾವಾಗಲೂ ಆನ್‌ಲೈನ್", "ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ…", "AI ಉತ್ತರಗಳು ಕೆಲವೊಮ್ಮೆ ತಪ್ಪಾಗಿರಬಹುದು.", "ನಮಸ್ಕಾರ! 🚌 ನಾನು ಬಸ್ ಸಮಯಗಳ ಸಹಾಯಕ. ಇನ್‌ಸ್ಟಾಲ್, ಸೌಲಭ್ಯಗಳು, ಬಸ್ ಸಮಯ – ಏನಾದರೂ ಕೇಳಿ.", "ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡುವುದು ಹೇಗೆ?", "ಇದು ಉಚಿತವೇ?", "ಯಾವ ಸೌಲಭ್ಯಗಳಿವೆ?", "ಬಸ್ ಎಲ್ಲಿದೆ ಎಂದು ಹೇಗೆ ನೋಡುವುದು?", "ತಿರುಕ್ಕುರಳ್", "ಡೌನ್‌ಲೋಡ್ ಆರಂಭವಾಗುತ್ತಿದೆ...", "ಲಿಂಕ್ ನಕಲಾಗಿದೆ. ಸ್ನೇಹಿತರಿಗೆ ಕಳುಹಿಸಿ."]};
+  var KUR=[["1", "அகர முதல எழுத்தெல்லாம் ஆதி", "பகவன் முதற்றே உலகு.", "எழுத்துகளுக்கெல்லாம் ‘அ’ முதல்; அதுபோல உலகுக்கு ஆதிபகவனே முதல்."], ["2", "கற்றதனால் ஆய பயனென்கொல் வாலறிவன்", "நற்றாள் தொழாஅர் எனின்.", "தூய அறிவுடையவனின் நல்ல திருவடிகளை வணங்கவில்லை என்றால், கற்ற கல்வியால் என்ன பயன்?"], ["392", "எண்ணென்ப ஏனை எழுத்தென்ப இவ்விரண்டும்", "கண்ணென்ப வாழும் உயிர்க்கு.", "எண்ணும் எழுத்தும் வாழும் மனிதர்க்குக் கண்கள் போன்றவை."], ["400", "கேடில் விழுச்செல்வம் கல்வி ஒருவற்கு", "மாடல்ல மற்றை யவை.", "ஒருவருக்கு அழிவில்லாத சிறந்த செல்வம் கல்வியே; மற்றவை செல்வம் அல்ல."], ["396", "தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக்", "கற்றனைத் தூறும் அறிவு.", "மணலில் தோண்டத் தோண்ட நீர் ஊறுவது போல, கற்கக் கற்க அறிவு பெருகும்."], ["423", "எப்பொருள் யார்யார்வாய்க் கேட்பினும் அப்பொருள்", "மெய்ப்பொருள் காண்பது அறிவு.", "யார் சொன்னாலும் அதில் உள்ள உண்மையைக் காண்பதே அறிவு."], ["621", "இடுக்கண் வருங்கால் நகுக அதனை", "அடுத்தூர்வ தஃதொப்பது இல்.", "துன்பம் வரும்போது கலங்காமல் சிரிக்க; அதை வெல்ல அதைவிடச் சிறந்த வழி இல்லை."], ["616", "முயற்சி திருவினை ஆக்கும் முயற்றின்மை", "இன்மை புகுத்தி விடும்.", "முயற்சி செல்வத்தைத் தரும்; முயற்சி இல்லாமை வறுமையைத் தரும்."], ["619", "தெய்வத்தான் ஆகா தெனினும் முயற்சிதன்", "மெய்வருத்தக் கூலி தரும்.", "விதியால் முடியாத செயலும், உழைத்து முயன்றால் அதற்கான பலன் கிடைக்கும்."], ["131", "ஒழுக்கம் விழுப்பந் தரலான் ஒழுக்கம்", "உயிரினும் ஓம்பப் படும்.", "ஒழுக்கம் சிறப்பைத் தருவதால், உயிரைவிட மேலாக ஒழுக்கத்தைப் பேண வேண்டும்."], ["291", "வாய்மை எனப்படுவது யாதெனின் யாதொன்றும்", "தீமை இலாத சொலல்.", "உண்மை என்பது எந்தத் தீங்கும் தராத சொற்களைப் பேசுவதே."], ["100", "இனிய உளவாக இன்னாத கூறல்", "கனியிருப்பக் காய்கவர்ந் தற்று.", "இனிய சொற்கள் இருக்க கடுமையான சொற்களைப் பேசுவது, கனி இருக்கக் காயை உண்பது போன்றது."], ["200", "சொல்லுக சொல்லிற் பயனுடைய சொல்லற்க", "சொல்லிற் பயனிலாச் சொல்.", "பயன் தரும் சொற்களையே பேசுக; பயனற்ற சொற்களைப் பேச வேண்டாம்."], ["430", "அறிவுடையார் எல்லாம் உடையார் அறிவிலார்", "என்னுடைய ரேனும் இலர்.", "அறிவுடையவரே எல்லாம் உடையவர்; அறிவில்லாதவர் எது இருந்தும் ஒன்றும் இல்லாதவரே."], ["788", "உடுக்கை இழந்தவன் கைபோல ஆங்கே", "இடுக்கண் களைவதாம் நட்பு.", "ஆடை நழுவும்போது கை தாங்குவது போல, துன்பத்தில் உடனே உதவுவதே நட்பு."], ["786", "முகநக நட்பது நட்பன்று நெஞ்சத்", "தகநக நட்பது நட்பு.", "முகம் மட்டும் மலர்வது நட்பல்ல; உள்ளம் மகிழ்வதே உண்மை நட்பு."], ["322", "பகுத்துண்டு பல்லுயிர் ஓம்புதல் நூலோர்", "தொகுத்தவற்றுள் எல்லாந் தலை.", "உணவைப் பகிர்ந்து உண்டு உயிர்களைக் காப்பதே அறநூலார் கூறியவற்றுள் சிறந்தது."], ["34", "மனத்துக்கண் மாசிலன் ஆதல் அனைத்தறன்", "ஆகுல நீர பிற.", "மனத்தில் குற்றம் இல்லாமல் இருப்பதே அறம்; மற்றவை ஆரவாரம் மட்டுமே."], ["972", "பிறப்பொக்கும் எல்லா உயிர்க்கும் சிறப்பொவ்வா", "செய்தொழில் வேற்றுமை யான்.", "பிறப்பால் எல்லோரும் சமம்; செய்யும் தொழிலின் சிறப்பால் வேறுபாடு உண்டாகும்."], ["151", "அகழ்வாரைத் தாங்கும் நிலம்போலத் தம்மை", "இகழ்வாரைப் பொறுத்தல் தலை.", "தன்னைத் தோண்டுபவரையும் தாங்கும் நிலம்போல, இகழ்பவரைப் பொறுப்பதே சிறந்தது."], ["314", "இன்னா செய்தாரை ஒறுத்தல் அவர்நாண", "நன்னயஞ் செய்து விடல்.", "தீங்கு செய்தவரை, அவர் வெட்கப்படும்படி நன்மை செய்து தண்டிக்க வேண்டும்."], ["108", "நன்றி மறப்பது நன்றன்று நன்றல்லது", "அன்றே மறப்பது நன்று.", "செய்த உதவியை மறப்பது நல்லதல்ல; பிறர் செய்த தீமையை அன்றே மறப்பது நல்லது."], ["101", "செய்யாமல் செய்த உதவிக்கு வையகமும்", "வானகமும் ஆற்றல் அரிது.", "பயன் எதிர்பாராமல் செய்த உதவிக்கு, மண்ணும் விண்ணும் ஈடாகாது."], ["26", "செயற்கரிய செய்வார் பெரியர் சிறியர்", "செயற்கரிய செய்கலா தார்.", "செய்வதற்கு அரிய செயல்களைச் செய்பவரே பெரியவர்; செய்ய இயலாதவர் சிறியவர்."], ["39", "அறத்தான் வருவதே இன்பம் மற்றெல்லாம்", "புறத்த புகழும் இல.", "அறவழியில் வருவதே உண்மையான இன்பம்; மற்றவை இன்பமும் புகழும் தருவதில்லை."], ["467", "எண்ணித் துணிக கருமம் துணிந்தபின்", "எண்ணுவம் என்பது இழுக்கு.", "செயலை நன்கு ஆராய்ந்த பின் தொடங்குக; தொடங்கிய பின் யோசிப்போம் என்பது குற்றம்."], ["391", "கற்க கசடறக் கற்பவை கற்றபின்", "நிற்க அதற்குத் தக.", "குற்றமில்லாமல் கற்க வேண்டியவற்றைக் கற்று, கற்றபடி வாழ வேண்டும்."], ["393", "கண்ணுடையர் என்பவர் கற்றோர் முகத்திரண்டு", "புண்ணுடையர் கல்லா தவர்.", "கற்றவரே உண்மையில் கண் உடையவர்; கல்லாதவர் முகத்தில் இருப்பவை வெறும் புண்கள்."], ["592", "உள்ளம் உடைமை உடைமை பொருளுடைமை", "நில்லாது நீங்கி விடும்.", "ஊக்கமுள்ள உள்ளமே உண்மையான செல்வம்; பொருள் செல்வம் நிலைக்காமல் போய்விடும்."], ["706", "அடுத்தது காட்டும் பளிங்குபோல் நெஞ்சம்", "கடுத்தது காட்டும் முகம்.", "பளிங்கு தன்முன் உள்ளதைக் காட்டுவது போல, மனத்தில் உள்ள உணர்வை முகம் காட்டும்."], ["11", "வான்நின்று உலகம் வழங்கி வருதலால்", "தான்அமிழ்தம் என்றுணரற் பாற்று.", "மழை பெய்வதால் உலகம் வாழ்கிறது; அதனால் மழையே அமிழ்தம் எனப்படும்."], ["152", "பொறுத்தல் இறப்பினை என்றும் அதனை", "மறத்தல் அதனினும் நன்று.", "பிறர் செய்த தீமையைப் பொறுப்பது நல்லது; அதை மறந்துவிடுவது அதைவிட நல்லது."], ["71", "அன்பிற்கும் உண்டோ அடைக்குந்தாழ் ஆர்வலர்", "புன்கணீர் பூசல் தரும்.", "அன்பை அடக்கி வைக்கும் தாழ் இல்லை; அன்புடையாரின் கண்ணீரே அதை வெளிப்படுத்திவிடும்."], ["72", "அன்பிலார் எல்லாம் தமக்குரியர் அன்புடையார்", "என்பும் உரியர் பிறர்க்கு.", "அன்பில்லாதவர் எல்லாம் தமக்கே என்பர்; அன்புடையவர் தம் எலும்பையும் பிறர்க்குத் தருவர்."], ["91", "இன்சொலால் ஈரம் அளைஇப் படிறிலவாம்", "செம்பொருள் கண்டார் வாய்ச்சொல்.", "உண்மை கண்டவரின் சொற்கள் அன்பு கலந்து வஞ்சனையின்றி இனிமையாக இருக்கும்."], ["212", "தாளாற்றித் தந்த பொருளெல்லாம் தக்கார்க்கு", "வேளாண்மை செய்தற் பொருட்டு.", "உழைத்துச் சேர்த்த பொருளெல்லாம், தகுதியானவர்களுக்கு உதவுவதற்காகவே."], ["202", "தீயவை தீய பயத்தலால் தீயவை", "தீயினும் அஞ்சப் படும்.", "தீய செயல்கள் துன்பத்தையே தருவதால், அவை நெருப்பை விடவும் அஞ்சத்தக்கவை."], ["114", "தக்கார் தகவிலர் என்பது அவரவர்", "எச்சத்தாற் காணப் படும்.", "ஒருவர் நல்லவரா அல்லரா என்பது அவர் விட்டுச் செல்லும் புகழாலும் மக்களாலும் தெரியும்."], ["397", "யாதானும் நாடாமால் ஊராமால் என்னொருவன்", "சாந்துணையும் கல்லாத வாறு.", "கற்றவனுக்கு எல்லா நாடும் ஊரும் தன்னுடையதே; அப்படியிருக்க சாகும் வரை ஏன் கல்லாமல் இருக்கிறான்?"]];
+  var X={48:"உங்கள் கேள்வியை எழுதுங்கள்…",50:"வணக்கம்! 🚌 நான் பேருந்து நேரங்கள் உதவியாளர். ஆப்பை நிறுவுவது, வசதிகள், பஸ் நேரம் – எதுவானாலும் கேளுங்கள்.",51:"ஆப்பை எப்படி நிறுவுவது?",52:"இது இலவசமா?",53:"என்ன வசதிகள் உள்ளன?",54:"பஸ் எங்கே என்று எப்படிப் பார்ப்பது?",56:"பதிவிறக்கம் தொடங்குகிறது...",57:"இணைப்பு நகலெடுக்கப்பட்டது. நண்பர்களுக்கு அனுப்புங்கள்."};
+  var els=[].slice.call(document.querySelectorAll("[data-i]")),orig={},cur="ta";
+  els.forEach(function(e){orig[e.getAttribute("data-i")]=e.innerHTML});
+  window.T=function(k){return cur==="ta"?(orig[k]||X[k]):(D[cur]&&D[cur][k])};
+  var sel=document.getElementById("lang"),st=document.getElementById("status"),loaded=false;
+  function say(t){if(st)st.textContent=t}
+  function ck(v){document.cookie=(v?"googtrans=/ta/"+v:"googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT")+";path=/"}
+  function applyLang(v){
+    cur=v;document.documentElement.lang=v;
+    els.forEach(function(e){var t=window.T(e.getAttribute("data-i"));if(t!=null)e.innerHTML=t});
+    if(window.aiRefresh)window.aiRefresh();say("");
+  }
+  function load(cb){
+    if(loaded)return cb();
+    var done=false;
+    window.gtInit=function(){
+      new google.translate.TranslateElement({pageLanguage:"ta",autoDisplay:false},"gt_el");
+      var n=0,t=setInterval(function(){var c=document.querySelector(".goog-te-combo");if(c||++n>40){clearInterval(t);if(c){done=true;loaded=true;cb()}}},150);
+    };
+    var sc=document.createElement("script");sc.src="https://translate.google.com/translate_a/element.js?cb=gtInit";document.head.appendChild(sc);
+    setTimeout(function(){if(!done){say("இந்த மொழி இணையத்தில் உள்ள (live) வெப்சைட்டில் வேலை செய்யும்.");sel.value=cur}},7000);
+  }
+  function viaGoogle(v){ck(v);say("…");load(function(){var c=document.querySelector(".goog-te-combo");if(c){c.value=v;c.dispatchEvent(new Event("change"));say("")}})}
+  function choose(v){
+    if(v==="ta"||D[v]){
+      ck("");
+      if(loaded){location.reload();return}
+      applyLang(v);
+    }else viaGoogle(v);
+  }
+  sel.addEventListener("change",function(){try{localStorage.setItem("lang",sel.value)}catch(e){}choose(sel.value)});
+  var saved="ta";try{saved=localStorage.getItem("lang")||"ta"}catch(e){}
+  for(var i=0;i<sel.options.length;i++)if(sel.options[i].value===saved)sel.value=saved;
+  if(saved==="ta"){ck("");if(window.aiRefresh)window.aiRefresh()}else choose(saved);
+
+  /* திருக்குறள் – ஒவ்வொரு 2 மணி நேரத்துக்கும் மாறும் (IST) */
+  var kEl=document.getElementById("kural"),last=-1;
+  function showK(){
+    var sl=Math.floor((Date.now()+19800000)/7200000);if(sl===last)return;last=sl;
+    var k=KUR[sl%KUR.length];
+    document.getElementById("kNo").textContent="· "+k[0];
+    document.getElementById("kT").innerHTML=k[1]+"<br>"+k[2];
+    document.getElementById("kM").textContent=k[3];
+    if(kEl){kEl.style.animation="none";void kEl.offsetWidth;kEl.style.animation=""}
+  }
+  showK();setInterval(showK,60000);
+})();
 </script>
 </body>
 </html>

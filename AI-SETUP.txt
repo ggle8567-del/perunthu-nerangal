@@ -1,0 +1,14 @@
+AI உதவியாளர் – நிறுவும் முறை (உங்கள் சொந்த ஹோஸ்டிங்கிற்கு)
+
+இப்போதே: index.html-ஐ அப்லோட் செய்தால் உதவியாளர் உள்ளமைந்த பதில்களுடன் (நிறுவல், இலவசமா, வசதிகள்…) 24/7 வேலை செய்யும்.
+
+முழு AI பதில்களுக்கு (எந்தக் கேள்விக்கும்):
+1. cloudflare.com-ல் இலவசக் கணக்கு > Workers > புதிய Worker உருவாக்குங்கள்.
+2. ai-worker.js உள்ளடக்கத்தை ஒட்டுங்கள்.
+3. Settings > Variables and Secrets > ANTHROPIC_API_KEY (Secret) = உங்கள் Anthropic API key.
+4. (விருப்பம்) ALLOWED_ORIGIN = உங்கள் வெப்சைட் முகவரி.
+5. Worker முகவரியை நகலெடுத்து index.html-ல்
+   <script> வரிக்கு முன் இதைச் சேருங்கள்:
+   <script>window.BUS_AI_ENDPOINT="https://உங்கள்-worker.workers.dev";</script>
+
+API key-ஐ ஒருபோதும் index.html-ல் நேரடியாக எழுத வேண்டாம்.
