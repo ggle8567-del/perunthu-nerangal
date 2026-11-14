@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>பேருந்து நேரங்கள் – APK பதிவிறக்கம்</title>
+<meta name="description" content="பேருந்து நேரங்கள் – பஸ் நேரம், ஓடும் நிலை, நிறுத்த நேரங்கள். Android APK இலவசப் பதிவிறக்கம்.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;800;900&display=swap">
+<style>
+:root{
+  --bg:#e7f5ec; --ink:#08130d; --muted:#3f5a4c;
+  --glass:rgba(255,255,255,.55); --glass2:rgba(255,255,255,.18); --edge:rgba(255,255,255,.9); --drop:rgba(8,40,24,.12);
+  --g1:#52f0a6; --g2:#14b36d; --g3:#0b7a4b; --shade:rgba(14,150,90,.32);
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#040a07; --ink:#eafff3; --muted:#9bbcaa;
+    --glass:rgba(255,255,255,.08); --glass2:rgba(255,255,255,.02); --edge:rgba(255,255,255,.2); --drop:rgba(0,0,0,.5);
+    --shade:rgba(0,0,0,.55); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#040a07; --ink:#eafff3; --muted:#9bbcaa;
+  --glass:rgba(255,255,255,.08); --glass2:rgba(255,255,255,.02); --edge:rgba(255,255,255,.2); --drop:rgba(0,0,0,.5);
+  --shade:rgba(0,0,0,.55); color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;position:relative;background:var(--bg);color:var(--ink);font-family:"Noto Sans Tamil",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.7;-webkit-text-size-adjust:100%;overflow-x:hidden}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1,h2{font-weight:900;line-height:1.25;letter-spacing:-.015em;margin:0}
+
+/* glass base */
+.glass,.top,.btn.alt,.step,.tile.gl3{
+  background:linear-gradient(145deg,var(--glass),var(--glass2));
+  -webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);
+  border:1px solid var(--edge);
+  box-shadow:inset 0 1px 1px var(--edge),0 12px 32px var(--drop);
+}
+
+/* background glow */
+.blobs{position:absolute;inset:0 0 auto 0;height:900px;z-index:-1;pointer-events:none;overflow:hidden}
+.blobs i{position:absolute;border-radius:50%;filter:blur(60px)}
+.blobs i:nth-child(1){width:300px;height:300px;background:#19c37d;left:-80px;top:80px;opacity:.7}
+.blobs i:nth-child(2){width:260px;height:260px;background:#0a8f6a;right:-60px;top:260px;opacity:.55}
+.blobs i:nth-child(3){width:220px;height:220px;background:#7dffb8;left:38%;top:480px;opacity:.35}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:10px;margin:8px 0 0;padding:8px 14px 8px 10px;font-weight:800;border-radius:999px}
+
+/* logo tile */
+.gl{position:relative;display:inline-grid;place-items:center;border-radius:30%;overflow:hidden;
+  background:linear-gradient(145deg,var(--glass),var(--glass2));
+  -webkit-backdrop-filter:blur(16px) saturate(1.8);backdrop-filter:blur(16px) saturate(1.8);
+  border:1px solid var(--edge);
+  box-shadow:inset 0 2px 2px var(--edge),inset 0 -10px 18px rgba(255,255,255,.1),0 14px 34px var(--shade)}
+.gl::after{content:"";position:absolute;left:8%;right:8%;top:3%;height:42%;border-radius:50% 50% 60% 60%/70% 70% 40% 40%;background:linear-gradient(180deg,rgba(255,255,255,var(--hl,.7)),rgba(255,255,255,0));pointer-events:none}
+.gl svg{position:relative;z-index:1;width:78%;height:78%;display:block;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))}
+.gl.sm{width:38px;height:38px}
+.gl.lg{width:112px;height:112px;margin:0 auto 22px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gl{--hl:.3}}
+:root[data-theme="dark"] .gl{--hl:.3}
+
+/* hero */
+.hero{text-align:center;padding:40px 0 20px}
+h1{font-size:clamp(2.3rem,10vw,4.8rem)}
+.lead{color:var(--muted);font-size:1.08rem;max-width:44ch;margin:18px auto 26px}
+.actions{display:flex;flex-direction:column;align-items:center;gap:12px}
+.btn{appearance:none;font:inherit;font-weight:800;font-size:1.08rem;padding:15px 34px;border-radius:999px;cursor:pointer;text-decoration:none;display:inline-block;min-height:54px;min-width:230px;text-align:center;color:var(--ink);border:1px solid transparent}
+.btn.main{color:#04130b;background:linear-gradient(160deg,var(--g1),var(--g2));border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 2px 2px rgba(255,255,255,.7),0 10px 30px rgba(25,195,125,.45)}
+.btn:focus-visible{outline:3px solid var(--g1);outline-offset:3px}
+.btn:active{transform:translateY(1px)}
+.note{color:var(--muted);font-size:.9rem;margin:16px auto 0;max-width:46ch}
+#status{min-height:1.6em;color:var(--muted);font-size:.95rem;margin-top:8px}
+
+/* phones */
+.show{padding:56px 0 8px;text-align:center}
+h2{font-size:clamp(1.8rem,6.5vw,3rem)}
+.phones{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;margin:30px auto 0}
+.phone{min-width:0;border-radius:28px;padding:20px 14px 18px;text-align:left;position:relative;overflow:hidden;color:#eafff3;
+  background:linear-gradient(160deg,rgba(18,40,29,.96),rgba(4,10,7,.96));
+  border:1px solid rgba(120,255,190,.35);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.25),0 20px 40px var(--drop)}
+.phone:nth-child(2){margin-top:30px}
+.phone::before{content:"";position:absolute;top:8px;left:50%;width:40px;height:5px;margin-left:-20px;border-radius:3px;background:rgba(255,255,255,.35)}
+.ph-h{font-weight:800;font-size:.82rem;line-height:1.5;margin:10px 0 14px;overflow-wrap:anywhere}
+.ph-r{position:relative;padding-left:22px}
+.ph-r::before{content:"";position:absolute;left:6px;top:10px;bottom:10px;width:2px;background:rgba(120,255,190,.35)}
+.ph-s{position:relative;padding:7px 0;min-width:0}
+.ph-s::before{content:"";position:absolute;left:-21px;top:13px;width:11px;height:11px;border-radius:50%;background:#04100a;border:2px solid #52f0a6}
+.ph-s.now::before{background:#52f0a6;box-shadow:0 0 0 0 rgba(82,240,166,.7);animation:pulse 1.6s ease-out 3}
+.ph-s b{display:block;font-size:.8rem;line-height:1.4;font-weight:800;overflow-wrap:anywhere}
+.ph-s em{display:block;font-style:normal;font-size:.72rem;line-height:1.4;color:#9bbcaa}
+@keyframes pulse{to{box-shadow:0 0 0 10px rgba(82,240,166,0)}}
+.ph-chip{display:inline-block;margin-top:12px;background:linear-gradient(160deg,#52f0a6,#14b36d);color:#04130b;border-radius:14px;padding:3px 12px;font-size:.72rem;line-height:1.5;font-weight:800}
+
+/* tiles */
+.why{padding:64px 0 8px}
+.why h2{text-align:center;margin-bottom:10px}
+.why>p{text-align:center;color:var(--muted);max-width:44ch;margin:0 auto 28px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border-radius:24px;padding:20px 18px;min-height:170px;min-width:0}
+.tile b{display:block;font-size:1.15rem;line-height:1.4;font-weight:900;margin:10px 0 6px;overflow-wrap:anywhere}
+.tile p{margin:0;font-size:.92rem;line-height:1.6}
+.tile svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tile.gr{color:#04130b;background:linear-gradient(150deg,#6bf5b4,#14b36d);border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 2px 2px rgba(255,255,255,.7),0 12px 30px rgba(25,195,125,.3)}
+.tile.bk{color:#eafff3;background:linear-gradient(150deg,rgba(18,40,29,.95),rgba(4,10,7,.95));border:1px solid rgba(120,255,190,.3);box-shadow:inset 0 1px 2px rgba(255,255,255,.2),0 12px 30px var(--drop)}
+.tile.bk svg{stroke:#52f0a6}
+.tile.gl3 svg{stroke:var(--g2)}
+
+/* steps */
+.how{padding:64px 0 0}
+.how h2{text-align:center;margin-bottom:24px}
+.steps{display:grid;grid-template-columns:1fr;gap:12px}
+.step{display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:22px}
+.step span{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(160deg,var(--g1),var(--g2));color:#04130b;display:grid;place-items:center;font-weight:900;box-shadow:inset 0 1px 2px rgba(255,255,255,.7)}
+.step b{display:block;font-size:1.08rem}
+.step p{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+
+/* end */
+.end{margin:60px 0 0;padding:44px 22px;border-radius:32px;text-align:center;color:#eafff3;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,rgba(18,40,29,.96),rgba(3,8,5,.98));border:1px solid rgba(120,255,190,.35);box-shadow:inset 0 1px 2px rgba(255,255,255,.25),0 24px 50px var(--drop)}
+.end::before{content:"";position:absolute;width:320px;height:320px;right:-90px;top:-120px;border-radius:50%;background:#19c37d;filter:blur(70px);opacity:.45}
+.end>*{position:relative}
+.end .btn{margin-top:22px}
+footer{padding:30px 0 48px;text-align:center;color:var(--muted);font-size:.9rem}
+
+@media (min-width:760px){
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .actions{flex-direction:row;justify-content:center}
+  .steps{grid-template-columns:1fr 1fr}
+  .phones{max-width:520px;gap:22px}
+  .phone{min-height:360px}
+  .hero{padding-top:64px}
+  .lead{font-size:1.2rem}
+}
+@media (min-width:1100px){
+  .wrap{padding:0 32px}
+  .phones{max-width:560px}
+  .tile{min-height:190px;padding:24px 22px}
+  .tile b{font-size:1.3rem}
+}
+@media (prefers-reduced-motion: reduce){.ph-s.now::before{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cf2ad"/><stop offset=".55" stop-color="#17b36e"/><stop offset="1" stop-color="#0b7a4b"/></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f6ff"/><stop offset="1" stop-color="#8cc3e8"/></linearGradient>
+    <linearGradient id="gStripe" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b2a22"/><stop offset="1" stop-color="#0a120e"/></linearGradient>
+    <radialGradient id="gWheel" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#6b6b6b"/><stop offset="1" stop-color="#1b1b1b"/></radialGradient>
+  </defs>
+  <symbol id="bus" viewBox="0 0 100 100">
+    <ellipse cx="50" cy="80" rx="36" ry="4" fill="#000" opacity=".25"/>
+    <rect x="9" y="24" width="82" height="50" rx="11" fill="url(#gBody)"/>
+    <rect x="9" y="58" width="82" height="7" fill="url(#gStripe)"/>
+    <rect x="15" y="31" width="14" height="19" rx="3" fill="url(#gGlass)"/>
+    <rect x="32" y="31" width="14" height="19" rx="3" fill="url(#gGlass)"/>
+    <rect x="49" y="31" width="14" height="19" rx="3" fill="url(#gGlass)"/>
+    <path d="M67 31h12a7 7 0 017 7v12H67z" fill="url(#gGlass)"/>
+    <rect x="15" y="31" width="71" height="3" rx="1.5" fill="#fff" opacity=".35"/>
+    <rect x="86" y="62" width="6" height="5" rx="2" fill="#fff7c2"/>
+    <rect x="8" y="62" width="4" height="5" rx="2" fill="#ffd9d0"/>
+    <circle cx="28" cy="74" r="9" fill="url(#gWheel)"/><circle cx="28" cy="74" r="3.6" fill="#cfd4d8"/>
+    <circle cx="72" cy="74" r="9" fill="url(#gWheel)"/><circle cx="72" cy="74" r="3.6" fill="#cfd4d8"/>
+    <path d="M13 28q30-8 74 0" stroke="#fff" stroke-width="2" fill="none" opacity=".4" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="wrap">
+  <div class="top"><span class="gl sm"><svg aria-hidden="true"><use href="#bus"/></svg></span>பேருந்து நேரங்கள்</div>
+
+  <header class="hero">
+    <span class="gl lg" role="img" aria-label="பேருந்து நேரங்கள் லோகோ"><svg aria-hidden="true"><use href="#bus"/></svg></span>
+    <h1>பஸ் எங்கே?<br>இப்போதே தெரியும்.</h1>
+    <p class="lead">பேருந்து நேரங்கள் என்பது Android-க்கான இலவச ஆப். பஸ் நேரம், ஓடும் நிலை, அடுத்த நிறுத்தங்களின் நேரம் – எல்லாம் ஒரே இடத்தில்.</p>
+    <div class="actions">
+      <a class="btn main" id="dl" href="bus-app.apk" download="bus-app.apk">APK பதிவிறக்கு</a>
+      <button class="btn alt" id="share">நண்பர்களுக்குப் பகிர்</button>
+    </div>
+    <div id="status" role="status" aria-live="polite"></div>
+    <p class="note">பதிவிறக்கம் 100%-ல் நின்றால், வேறு உலாவியில் (Chrome) முயற்சி செய்யுங்கள்.</p>
+  </header>
+
+  <section class="show" aria-label="ஆப் திரைகள்">
+    <h2>பயணத்துக்கு ஏற்ற<br>எளிய திரை</h2>
+    <div class="phones">
+      <div class="phone">
+        <div class="ph-h">இறைமங்கலம் → திருச்செங்கோடு</div>
+        <div class="ph-r">
+          <div class="ph-s"><b>இறைமங்கலம்</b><em>புறப்பாடு</em></div>
+          <div class="ph-s now"><b>நடுவழி</b><em>வருகை</em></div>
+          <div class="ph-s"><b>திருச்செங்கோடு</b><em>வருகை</em></div>
+        </div>
+        <span class="ph-chip">ஓடிக்கொண்டிருக்கிறது</span>
+      </div>
+      <div class="phone">
+        <div class="ph-h">நேரம் புதுப்பி</div>
+        <div class="ph-r">
+          <div class="ph-s"><b>நிறுத்தம் 1</b><em>தாமதம்</em></div>
+          <div class="ph-s now"><b>நிறுத்தம் 2</b><em>+5 நிமிடம்</em></div>
+          <div class="ph-s"><b>நிறுத்தம் 3</b><em>+5 நிமிடம்</em></div>
+          <div class="ph-s"><b>நிறுத்தம் 4</b><em>+5 நிமிடம்</em></div>
+        </div>
+        <span class="ph-chip">தானாக மாறும்</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <h2>தேவையானது மட்டும்</h2>
+    <p>பஸ்ஸுக்காகக் காத்திருப்பவர்களுக்காக உருவாக்கப்பட்டது.</p>
+    <div class="tiles">
+      <div class="tile gr"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>பஸ் நேரம்</b><p>ஒவ்வொரு நிறுத்தத்தின் வருகை, புறப்பாடு நேரம்.</p></div>
+      <div class="tile bk"><svg viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><b>ஓடும் நிலை</b><p>பஸ் இப்போது எங்கே உள்ளது என்று பாருங்கள்.</p></div>
+      <div class="tile gl3"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0114-5l2 2M20 12a8 8 0 01-14 5l-2-2"/><path d="M20 4v5h-5M4 20v-5h5"/></svg><b>தானாகப் புதுப்பிப்பு</b><p>ஒரு நிறுத்தத்தில் நேரம் மாற்றினால் அடுத்த நிறுத்தங்களும் மாறும்.</p></div>
+      <div class="tile gr"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-4M8.2 13l7.6 4"/></svg><b>எளிதாகப் பகிர்</b><p>ஆப்பை நண்பர்களுக்கு ஒரே தொடுதலில் அனுப்புங்கள்.</p></div>
+      <div class="tile gl3"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><b>இலவசம்</b><p>பதிவு தேவையில்லை. நிறுவி உடனே பயன்படுத்தலாம்.</p></div>
+      <div class="tile bk"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg><b>போனுக்கு ஏற்றது</b><p>பெரிய எழுத்து, எளிய திரை, வேகமாகத் திறக்கும்.</p></div>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>நிறுவுவது எப்படி?</h2>
+    <div class="steps">
+      <div class="step"><span>1</span><div><b>APK-ஐப் பதிவிறக்குங்கள்</b><p>மேலே உள்ள “APK பதிவிறக்கு” பட்டனை அழுத்துங்கள்.</p></div></div>
+      <div class="step"><span>2</span><div><b>கோப்பைத் திறங்கள்</b><p>பதிவிறக்கம் முடிந்ததும் அறிவிப்பில் அல்லது Downloads-ல் கோப்பைத் தொடுங்கள்.</p></div></div>
+      <div class="step"><span>3</span><div><b>அனுமதி கொடுங்கள்</b><p>“இந்த மூலத்திலிருந்து நிறுவ அனுமதி” என்று கேட்டால் அனுமதியுங்கள்.</p></div></div>
+      <div class="step"><span>4</span><div><b>நிறுவு அழுத்துங்கள்</b><p>நிறுவல் முடிந்ததும் ஆப்பைத் திறந்து பயன்படுத்துங்கள்.</p></div></div>
+    </div>
+  </section>
+
+  <section class="end">
+    <h2>இன்றே நிறுவுங்கள்</h2>
+    <a class="btn main" href="bus-app.apk" download="bus-app.apk">APK பதிவிறக்கு</a>
+  </section>
+
+  <footer>© பேருந்து நேரங்கள்</footer>
+</div>
+
+<script>
+var statusEl = document.getElementById("status");
+function say(t){ statusEl.textContent = t; }
+document.getElementById("dl").addEventListener("click", function(){ say("பதிவிறக்கம் தொடங்குகிறது..."); });
+document.getElementById("share").addEventListener("click", function(){
+  var url = location.href.split("#")[0];
+  var text = "பேருந்து நேரங்கள் – பஸ் எங்கே வருகிறது என்று இந்த ஆப்பில் பாருங்கள்:";
+  if (navigator.share) { navigator.share({title:"பேருந்து நேரங்கள்", text:text, url:url}).catch(function(){}); }
+  else if (navigator.clipboard) { navigator.clipboard.writeText(url).then(function(){ say("இணைப்பு நகலெடுக்கப்பட்டது. நண்பர்களுக்கு அனுப்புங்கள்."); }, function(){ say("இணைப்பு: " + url); }); }
+  else { say("இணைப்பு: " + url); }
+});
+</script>
+</body>
+</html>
